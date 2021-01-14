@@ -12,6 +12,8 @@ require (
 	github.com/jinzhu/gorm v1.9.16
 	github.com/nathan-osman/go-ezform v0.0.0-20181208223112-6deed8d1fd72
 	github.com/nathan-osman/go-reflectr v0.0.0-20180814053125-304e3940d755 // indirect
+	github.com/shurcooL/httpfs v0.0.0-20190707220628-8d4bc4ba7749 // indirect
+	github.com/shurcooL/vfsgen v0.0.0-20200824052919-0d455de96546 // indirect
 	github.com/sirupsen/logrus v1.7.0
 	github.com/urfave/cli v1.22.5
 	golang.org/x/oauth2 v0.0.0-20210113205817-d3ed898aa8a3

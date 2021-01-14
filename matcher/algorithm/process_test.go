@@ -40,7 +40,7 @@ func TestSimple(t *testing.T) {
 	}
 }
 
-func TestExlusion(t *testing.T) {
+func TestExclusion(t *testing.T) {
 	userList, _, err := processParams(
 		&Params{
 			Exclusions: []*Exclusion{

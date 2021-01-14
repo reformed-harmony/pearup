@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+  <form method="post">
+    {% import 'macros/form.html' form_error, text, checkbox, select, submit %}
+    {{ form_error(error) }}
+    {{ text('Link', "Facebook profile URL", form.Link) }}
+    {{ select('Gender', "Gender", genders, form.Gender) }}
+    {{ checkbox('IsAdmin', "Is admin?", form.IsAdmin) }}
+    {{ submit("Save") }}
+  </form>
+{% endblock %}

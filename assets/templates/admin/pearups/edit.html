@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+  <form method="post">
+    {% import 'macros/form.html' form_error, text, checkbox, submit %}
+    {{ form_error(error) }}
+    {{ text('Name', "Name", form.Name) }}
+    {{ text('EndDate', "End date", form.EndDate) }}
+    {{ checkbox('IsComplete', "Is complete?", form.IsComplete) }}
+    {{ checkbox('IsPublic', "Is public?", form.IsPublic) }}
+    {{ checkbox('CanRequest', "Can request partners?", form.CanRequest) }}
+    {{ submit("Save") }}
+  </form>
+{% endblock %}

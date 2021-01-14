@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+      {{ site_title }}
+      {% if title %}
+        &mdash; {{ title }}
+      {% endif %}
+    </title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="/static/img/favicon.png"/>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/static/css/{{ site_theme }}.min.css">
+    <link rel="stylesheet" href="/static/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/pearup.css">
+  </head>
+  <body>
+
+    {% include "fragments/header.html" %}
+    <div class="container">
+      {% include "fragments/alerts.html" %}
+      {% block content %}{% endblock %}
+    </div>
+    {% include "fragments/footer.html" %}
+
+    <!-- Scripts -->
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/bootstrap-autocomplete.min.js"></script>
+    <script src="/static/js/pearup.js"></script>
+  </body>
+</html>

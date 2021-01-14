@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ pearup.Name }}</h1>
+  {% if !pearup.IsComplete %}
+    <p>
+      This pear-up is open for registration.
+    </p>
+    {% if registration.ID %}
+      <p class="text-success">
+        <span class="fa fa-check"></span>
+        You have registered for this pear-up.
+      </p>
+      <p class="text-muted">
+        You will be paired up with someone {{ pearup.EndDate|naturaltime }}.
+      </p>
+      <form action="/pearups/{{ pearup.ID }}/register" method="post">
+        <input type="hidden" name="unregister">
+        <button type="submit" class="btn btn-primary">
+          <span class="fa fa-ban"></span>
+          Un-register
+        </button>
+      </form>
+    {% else %}
+      <p>
+        <form action="/pearups/{{ pearup.ID }}/register" method="post">
+          <button type="submit" class="btn btn-primary">
+            <span class="fa fa-clipboard-check"></span>
+            Register
+          </button>
+        </form>
+      </p>
+      <p class="text-muted">
+        The pear-up will begin {{ pearup.EndDate|naturaltime }}.
+      </p>
+    {% endif %}
+  {% else %}
+    <p>
+      This pear-up has completed.
+    </p>
+    <br>
+    {% for m in matches %}
+      {% if m.User1.ID == user.ID %}
+        {% set match_user = m.User2 %}
+      {% else %}
+        {% set match_user = m.User1 %}
+      {% endif %}
+      <div class="media">
+        <img src="/media/{{ match_user.Picture }}" class="pearup lg mr-3">
+        <div class="media-body">
+          You have been paired with:
+          <h5 class="mt-0">
+            <a href="{{ match_user.Link }}">{{ match_user.Name }}</a>
+          </h5>
+        </div>
+      </div>
+      <br>
+    {% empty %}
+      <p>You were not paired with anyone.</p>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

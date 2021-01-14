@@ -1,0 +1,65 @@
+{# Display a non-field error for a form #}
+{% macro form_error(error) export %}
+  {% if error %}
+    <p class="text-danger">
+      <strong>Error:</strong>
+      {{ error }}
+    </p>
+  {% endif %}
+{% endmacro %}
+
+{# Display an <input type="text"> element #}
+{% macro text(name, title, field) export %}
+  <div class="form-group">
+    <label for="{{ name }}">{{ title }}</label>
+    <input type="text"
+      class="form-control{% if field.Error %} is-invalid{% endif %}"
+      id="{{ name }}" name="{{ name }}" value="{{ field.Value() }}">
+    {% if field.Error %}
+      <div class="invalid-feedback">
+        {{ field.Error.Error() }}
+      </div>
+    {% endif %}
+  </div>
+{% endmacro %}
+
+{# Display an <input type="checkbox"> element #}
+{% macro checkbox(name, title, field) export %}
+  <div class="form-group form-check">
+    <input type="checkbox"
+      class="form-check-input{% if field.Error %} is-invalid{% endif %}"
+      id="{{ name }}" name="{{ name }}"{% if field.Value() %} checked{% endif %}>
+    <label class="form-check-label" for="{{ name }}">{{ title }}</label>
+    {% if field.Error %}
+      <div class="invalid-feedback">
+        {{ field.Error.Error() }}
+      </div>
+    {% endif %}
+  </div>
+{% endmacro %}
+
+{# Display a <select> element #}
+{% macro select(name, title, choices, field) export %}
+  <div class="form-group">
+    <label for="{{ name }}">{{ title }}</label>
+    <select class="form-control{% if field.Error %} is-invalid{% endif %}"
+      id="{{ name }}" name="{{ name }}" value="{{ value }}">
+      {% for k, v in choices %}
+        <option value="{{ k }}"{% if k == field.Value() %} selected{% endif %}>{{ v }}</option>
+      {% endfor %}
+    </select>
+    {% if field.Error %}
+      <div class="invalid-feedback">
+        {{ field.Error.Error() }}
+      </div>
+    {% endif %}
+  </div>
+{% endmacro %}
+
+{# Display a submit button #}
+{% macro submit(action) export %}
+  <br>
+  <button type="submit" class="btn btn-lg btn-primary">
+    {{ action }}
+  </button>
+{% endmacro %}

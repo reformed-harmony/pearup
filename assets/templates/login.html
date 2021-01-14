@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Login</h1>
+  <p class="text-muted">
+    Please select a login method below:
+  </p>
+  <br><br>
+  <div class="row">
+    <div class="col-sm">
+      <a href="/login/facebook" class="pearup social facebook">
+        <i class="fab fa-facebook-f"></i> &nbsp;
+        Facebook
+      </a>
+    </div>
+    <div class="col-sm">
+      <a href="/login/google" class="pearup social google">
+        <i class="fab fa-google"></i> &nbsp;
+        Google
+      </a>
+    </div>
+  </div>
+{% endblock %}

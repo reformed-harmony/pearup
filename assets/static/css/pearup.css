@@ -1,0 +1,77 @@
+table.table {
+  margin: 40px 0;
+}
+
+table.table td.fit,
+table.table th.fit {
+  white-space: nowrap;
+  width: 1%;
+}
+
+.navbar {
+  margin-bottom: 32px;
+}
+
+.footer {
+  background-color: #ecf0f1;
+  margin-top: 64px;
+  padding: 32px 0;
+}
+
+.pearup.social {
+  border-radius: 5px;
+  color: #fff;
+  display: block;
+  margin: 8px 0;
+  padding: 8px 24px;
+  text-align: center;
+}
+
+.pearup.social:hover {
+  text-decoration: none;
+}
+
+.pearup.social.facebook {
+  background-color: #3b5998;
+  border: 1px solid #2c4272;
+}
+
+.pearup.social.facebook:hover {
+  background-color: #5d7dc0;
+}
+
+.pearup.social.google {
+  background-color: #db4437;
+  border: 1px solid #ae2a1f;
+}
+
+.pearup.social.google:hover {
+  background-color: #e47269;
+}
+
+.pearup.social.microsoft {
+  background-color: #107C11;
+  border: 1px solid #0c5d0c;
+}
+
+.pearup.social.microsoft:hover {
+  background-color: #1acd1c;
+}
+
+.pearup.thumb {
+  width: 25px;
+}
+
+.pearup.lg {
+  width: 50px;
+}
+
+/* Utility class to work around issues with autocomplete popup */
+.autocomplete-container {
+  position: relative;
+}
+
+/* Ensure the page is never wider than 992px. */
+@media (min-width: 992px) {
+  .container { max-width: 720px; }
+}

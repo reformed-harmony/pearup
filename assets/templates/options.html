@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% import 'macros/form.html' form_error, submit %}
+
+  {# Display a form for deleting a user #}
+  {% macro deletion_form(action, user_id) %}
+    <form method="post" class="pearup-confirm">
+      <input type="hidden" name="Action" value="{{ action }}">
+      <input type="hidden" name="UserID" value="{{ user_id }}">
+      <button type="submit" class="btn btn-sm btn-danger">
+        <span class="fa fa-trash"></span>
+        Delete
+      </button>
+    </form>
+  {% endmacro %}
+
+  {# Display a form for adding a user #}
+  {% macro add_form(action) %}
+    <form method="post">
+      {{ form_error(error) }}
+      <input type="hidden" name="Action" value="{{ action }}">
+      <input type="hidden" name="UserID">
+      <input type="text"
+        class="users form-control"
+        data-control="UserID"
+        placeholder="Start typing a name...">
+      {{ submit("Add") }}
+    </form>
+  {% endmacro %}
+
+  <h1>Options</h1>
+  <p class="text-muted">
+    The options below give you some control over whom you are paired with.
+  </p>
+  <br>
+  <h2>Requests</h2>
+  <p class="text-muted">
+    Some pear-ups include an option to request certain people. The table below displays your requests. Note that the algorithm ignores the order of users in this list. Once a request is fulfulled, it is removed.
+  </p>
+  {% if requests %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in requests %}
+          <tr>
+            <td class="fit">
+              <img src="/media/{{ r.RequestedUser.Picture }}" class="pearup thumb">
+            </td>
+            <td>
+              {{ r.RequestedUser.Name }}
+            </td>
+            <td class="text-right">
+              {{ deletion_form('delete_request', r.RequestedUser.ID) }}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>There are no requests.</p>
+  {% endif %}
+  {{ add_form('add_request') }}
+  <br><br>
+  <h2>Exclusions</h2>
+  <p class="text-muted">
+    All pear-ups give you the ability to specify certain people you do <strong>not</strong> want to be paired with.
+  </p>
+  {% if exclusions %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for e in exclusions %}
+          <tr>
+            <td class="fit">
+              <img src="/media/{{ e.ExcludedUser.Picture }}" class="pearup thumb">
+            </td>
+            <td>
+              {{ e.ExcludedUser.Name }}
+            </td>
+            <td class="text-right">
+              {{ deletion_form('delete_exclusion', r.ExcludedUser.ID) }}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>There are no exclusions.</p>
+  {% endif %}
+  {{ add_form('add_exclusion') }}
+{% endblock %}

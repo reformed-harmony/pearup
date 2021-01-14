@@ -1,0 +1,6 @@
+{% for a in alerts %}
+  <div class="alert alert-{{ a.Type }} alert-dismissible">
+    <strong>Alert:</strong> {{ a.Body }}.
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+  </div>
+{% endfor %}

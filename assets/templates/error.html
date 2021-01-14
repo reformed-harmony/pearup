@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Error</h1>
+  <p class="text-danger">
+    <strong>An error has occurred while attempting to process your request:</strong>
+  </p>
+  <p>
+    <code>{{ error }}</code>
+  </p>
+  <p class="text-muted">
+    This is almost certainly a problem on our end and not yours. If this error persists, please contact us and include the error message shown above.
+  </p>
+{% endblock %}

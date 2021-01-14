@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+  <p class="text-muted">
+    In order to participate in a pear-up, you will need a completed profile.
+  </p>
+  <p class="text-muted">
+    <strong>Tip:</strong> Don't know your Facebook profile URL?
+    Visit <a href="https://fb.com/me" target="_blank">fb.com/me</a> to be instantly redirected to it.
+  </p>
+  <form method="post">
+    {% import 'macros/form.html' form_error, text, select, submit %}
+    {{ form_error(error) }}
+    {{ text('Link', "Facebook profile URL", form.Link) }}
+    {{ select('Gender', "Gender", genders, form.Gender) }}
+    {{ submit("Save") }}
+  </form>
+{% endblock %}

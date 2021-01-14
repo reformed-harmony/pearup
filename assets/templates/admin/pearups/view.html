@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+  <p class="text-muted">
+    {% if pearup.IsComplete %}
+      Pear-up completed {{ pearup.EndDate|naturaltime }}.
+    {% else %}
+      Pear-up begins {{ pearup.EndDate|naturaltime }}.
+    {% endif %}
+  </p>
+  <br>
+  <h3>Totals</h3>
+  <p>
+    <strong>{{ numMen }} men</strong>
+    and
+    <strong>{{ numWomen }} women</strong>
+    have registered for this pear-up.
+  </p>
+  <br>
+  <h3>Registrations</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Gender</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in registrations %}
+        <tr>
+          <td class="fit">
+            <img src="/media/{{ r.User.Picture }}" class="pearup thumb">
+          </td>
+          <td>
+            <a href="{{ r.User.Link }}">{{ r.User.Name }}</a>
+          </td>
+          <td>
+            {% if r.User.IsMale %}Male{% endif %}
+            {% if r.User.IsFemale %}Female{% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <h3>Matches</h3>
+  <form method="post">
+    {% import 'macros/form.html' form_error %}
+    {{ form_error(error) }}
+    <table class="table table-striped">
+      <tbody>
+        {% for m in matches %}
+          <tr>
+            <td class="fit">
+              <img src="/media/{{ m.User1.Picture }}" class="pearup thumb">
+            </td>
+            <td>
+              <a href="{{ m.User1.Link }}">{{ m.User1.Name }}</a>
+            </td>
+            <td class="fit">
+              <img src="/media/{{ m.User2.Picture }}" class="pearup thumb">
+            </td>
+            <td>
+              <a href="{{ m.User2.Link }}">{{ m.User2.Name }}</a>
+            </td>
+            <td class="fit">
+              <a href="/admin/pearups/{{ pearup.ID }}/{{ m.ID }}/delete" class="btn btn-sm btn-danger">
+                <span class="fa fa-trash"></span>
+                Delete
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+        <tr>
+          <td colspan="2">
+            <div class="autocomplete-container">
+              <input type="hidden" name="User1ID">
+              <input type="text"
+                class="users form-control"
+                data-control="User1ID"
+                placeholder="User 1...">
+            </div>
+          </td>
+          <td colspan="2">
+            <div class="autocomplete-container">
+              <input type="hidden" name="User2ID">
+              <input type="text"
+                class="users form-control"
+                data-control="User2ID"
+                placeholder="User 2...">
+            </div>
+          </td>
+          <td>
+            <button type="submit" class="btn btn-sm btn-primary">
+              <span class="fa fa-plus"></span>
+              Add
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+{% endblock %}

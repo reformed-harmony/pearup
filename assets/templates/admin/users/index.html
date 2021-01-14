@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Users</h1>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th class="fit"></th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Admin</th>
+          <th>Gender</th>
+          <th>Logins</th>
+          <th></th>
+        </tr>
+        {% for u in users %}
+          <tr>
+            <td class="fit">
+              <img src="/media/{{ u.Picture }}" class="pearup thumb">
+            </td>
+            <td>
+              {% if u.Link %}<a href="{{ u.Link }}" target="_blank">{% endif %}
+              {{ u.Name }}
+              {% if u.Link %}</a>{% endif %}
+            </td>
+            <td>
+              <a href="mailto:{{ u.Email }}" title="{{ u.Email }}">
+                {{ u.Email|truncatechars:12 }}
+              </a>
+            </td>
+            <td>
+              {% if u.IsAdmin %}
+                <span class="text-success fa fa-check"></span>
+              {% else %}
+                <span class="text-danger fa fa-times"></span>
+              {% endif %}
+            </td>
+            <td>
+              {% if u.IsMale %}Male{% endif %}
+              {% if u.IsFemale %}Female{% endif %}
+            </td>
+            <td>
+              {% if u.FacebookID %}
+                <span class="fab fa-facebook"></span>
+              {% endif %}
+              {% if u.GoogleID %}
+                <span class="fab fa-google"></span>
+              {% endif %}
+              {% if u.MicrosoftID %}
+                <span class="fab fa-windows"></span>
+              {% endif %}
+            </td>
+            <td class="text-right">
+              <a href="/admin/users/{{ u.ID }}/edit" class="btn btn-sm btn-primary">
+                <span class="fa fa-edit"></span>
+                Edit
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </thead>
+    </table>
+  </div>
+{% endblock %}

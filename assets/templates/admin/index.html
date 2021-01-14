@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Administration</h1>
+  <p class="text-muted">
+    Use the tools below to administer the website.
+  </p>
+  <br>
+  <div class="card-deck">
+    <div class="card">
+      <div class="card-body">
+        <p class="text-center">
+          <span class="fa fa-5x fa-calendar-alt"></span>
+        </p>
+        <h5 class="card-title">Pear-Ups</h5>
+        <p class="card-text">
+          Create and schedule pear-ups, view past pear-ups, and view registration information.
+        </p>
+      </div>
+      <div class="card-footer">
+        <a href="/admin/pearups">Manage Pear-ups</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <p class="text-center">
+          <span class="fa fa-5x fa-users"></span>
+        </p>
+        <h5 class="card-title">Users</h5>
+        <p class="card-text">
+          View the list of registered users. You can also edit user profile information.
+        </p>
+      </div>
+      <div class="card-footer">
+        <a href="/admin/users">Manage Users</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

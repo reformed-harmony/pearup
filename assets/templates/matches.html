@@ -7,7 +7,15 @@
   </p>
   <ul>
     {% for m in matches %}
-      <li>{{ m.Pearup.Name }} — {{ m.User1.Name }}</li>
+      {% if m.User1.ID == user.ID %}
+        {% set match_user = m.User2 %}
+      {% else %}
+        {% set match_user = m.User1 %}
+      {% endif %}
+      <li>
+        {{ m.Pearup.Name }} —
+        {{ match_user.Name }}
+      </li>
     {% endfor %}
   </ul>
 {% endblock %}

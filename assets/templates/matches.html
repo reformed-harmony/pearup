@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Previous Matches</h1>
+  <p>
+    The list below shows your previous matches.
+  </p>
+  <ul>
+    {% for m in matches %}
+      <li>{{ m.Pearup.Name }} — {{ m.User1.Name }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

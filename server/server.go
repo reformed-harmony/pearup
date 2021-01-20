@@ -78,11 +78,10 @@ func New(cfg *Config) (*Server, error) {
 	// API routes
 	s.router.HandleFunc("/api/users", s.requireLogin(s.apiUsers))
 
-	// Profile route
+	// User routes
 	s.router.HandleFunc("/profile", s.requireLogin(s.profile))
-
-	// Options route
 	s.router.HandleFunc("/options", s.requireLogin(s.options))
+	s.router.HandleFunc("/matches", s.requireLogin(s.matches))
 
 	// Pear-Up Routes
 	s.router.HandleFunc("/pearups", s.requireLogin(s.pearups))

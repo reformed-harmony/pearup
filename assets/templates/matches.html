@@ -18,7 +18,9 @@
         {% for m in matches %}
           <tr>
             <td>{{ m.Pearup.Name }}</td>
-            <td>{{ m.Pearup.EndDate|naturaltime }}</td>
+            <td title="{{ m.Pearup.EndDate }}">
+              {{ m.Pearup.EndDate|naturaltime }}
+            </td>
             <td>
               {% if m.User1.ID == user.ID %}
                 {% set u = m.User2 %}
@@ -26,6 +28,7 @@
                 {% set u = m.User1 %}
               {% endif %}
               <img src="/media/{{ u.Picture }}" class="pearup thumb">
+              &nbsp;
               {% if u.Link %}<a href="{{ u.Link }}" target="_blank">{% endif %}
               {{ u.Name }}
               {% if u.Link %}</a>{% endif %}

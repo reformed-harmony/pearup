@@ -1,7 +1,12 @@
 package algorithm
 
 import (
+	"errors"
 	"sort"
+)
+
+var (
+	errMatchMismatch = errors.New("number of matches does not equal expected value")
 )
 
 // Algorithm maintains state during the matching process.
@@ -30,7 +35,7 @@ type byRequests []*algUser
 
 func (r byRequests) Len() int           { return len(r) }
 func (r byRequests) Swap(i, j int)      { r[i], r[j] = r[j], r[i] }
-func (r byRequests) Less(i, _ int) bool { return len(r[i].requests) >= 0 }
+func (r byRequests) Less(i, j int) bool { return len(r[i].requests) >= 0 && len(r[j].requests) == 0 }
 
 // Run executes the algorithm and attempts to produce a list of matches. The
 // algorithm is an attempt to take all possible valid "solutions" to the input
@@ -48,5 +53,15 @@ func (a *Algorithm) Run() ([]*Match, error) {
 	sort.Sort(byRequests(majList))
 
 	// Perform the matches
-	return match(majList, minTotal, minTotal)
+	m, err := match(majList, minTotal, minTotal)
+	if err != nil {
+		return nil, err
+	}
+
+	// Perform a last minute sanity check
+	if len(majList) != len(m) {
+		return nil, errMatchMismatch
+	}
+
+	return m, nil
 }

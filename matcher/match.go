@@ -88,20 +88,27 @@ func createMatches(conn *db.Conn, pearupID int64, matches []*algorithm.Match) er
 	return nil
 }
 
-func removeRequests(conn *db.Conn, matches []*algorithm.Match) error {
+func (m *Matcher) removeRequests(conn *db.Conn, matches []*algorithm.Match) error {
 	dbRequests := []*db.Request{}
 	if err := conn.
+		Preload("User").
+		Preload("RequestedUser").
 		Find(&dbRequests).
 		Error; err != nil {
 		return err
 	}
-	for _, m := range matches {
+	for _, v := range matches {
 		for _, r := range dbRequests {
-			if r.UserID == m.User1ID && r.RequestedUserID == m.User2ID ||
-				r.UserID == m.User2ID && r.RequestedUserID == m.User1ID {
+			if r.UserID == v.User1ID && r.RequestedUserID == v.User2ID ||
+				r.UserID == v.User2ID && r.RequestedUserID == v.User1ID {
 				if err := conn.Delete(r).Error; err != nil {
 					return err
 				}
+				m.log.Infof(
+					"removed request for %s by %s",
+					r.RequestedUser.Name,
+					r.User.Name,
+				)
 			}
 		}
 	}
@@ -112,14 +119,14 @@ func (m *Matcher) match(conn *db.Conn, p *db.Pearup) error {
 	m.log.Infof("begining %s...", p.Name)
 
 	// Load requests (if allowed)
-	requests, err := func() ([]*algorithm.Request, error) {
-		if p.CanRequest {
-			return loadRequests(conn)
+	requests := []*algorithm.Request{}
+	if p.CanRequest {
+		r, err := loadRequests(conn)
+		if err != nil {
+			return err
 		}
-		return []*algorithm.Request{}, nil
-	}()
-	if err != nil {
-		return err
+		requests = r
+		m.log.Infof("loaded %d requests", len(requests))
 	}
 
 	// Load exclusions
@@ -127,12 +134,14 @@ func (m *Matcher) match(conn *db.Conn, p *db.Pearup) error {
 	if err != nil {
 		return err
 	}
+	m.log.Infof("loaded %d exclusions", len(exclusions))
 
 	// Load registrants
 	registrants, err := loadRegistrants(conn, p.ID)
 	if err != nil {
 		return err
 	}
+	m.log.Infof("loaded %d registrants", len(registrants))
 
 	// Create the algorithm object and run it
 	matches, err := algorithm.New(&algorithm.Params{
@@ -143,6 +152,7 @@ func (m *Matcher) match(conn *db.Conn, p *db.Pearup) error {
 	if err != nil {
 		return err
 	}
+	m.log.Infof("created %d matches", len(matches))
 
 	// Create the matches
 	if err := createMatches(conn, p.ID, matches); err != nil {
@@ -150,7 +160,7 @@ func (m *Matcher) match(conn *db.Conn, p *db.Pearup) error {
 	}
 
 	// Remove requests that were completed
-	if err := removeRequests(conn, matches); err != nil {
+	if err := m.removeRequests(conn, matches); err != nil {
 		return err
 	}
 

@@ -238,16 +238,31 @@ func (s *Server) adminDeletePearup(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) adminUsers(w http.ResponseWriter, r *http.Request) {
-	var users []*db.User
+	var (
+		users   []*db.User
+		page, _ = strconv.Atoi(r.URL.Query().Get("page"))
+	)
 	if err := s.conn.
 		Order("name").
+		Offset(page * 30).
+		Limit(31).
 		Find(&users).Error; err != nil {
 		s.renderError(w, r, err.Error())
 		return
 	}
+	if page == 0 {
+		page = 1
+	}
+	hasMore := false
+	if len(users) > 30 {
+		users = users[:30]
+		hasMore = true
+	}
 	s.render(w, r, "admin/users/index.html", pongo2.Context{
-		"title": "Users",
-		"users": users,
+		"title":   "Users",
+		"users":   users,
+		"page":    page,
+		"hasMore": hasMore,
 	})
 }
 

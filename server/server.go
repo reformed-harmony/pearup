@@ -81,6 +81,7 @@ func New(cfg *Config) (*Server, error) {
 
 	// User routes
 	s.router.HandleFunc("/profile", s.requireLogin(s.profile))
+	s.router.HandleFunc("/profile/delete", s.requireLogin(s.profileDelete))
 	s.router.HandleFunc("/options", s.requireLogin(s.options))
 	s.router.HandleFunc("/matches", s.requireLogin(s.matches))
 

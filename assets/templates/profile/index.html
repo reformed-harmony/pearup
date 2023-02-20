@@ -14,6 +14,16 @@
     {{ form_error(error) }}
     {{ text('Link', "Facebook profile URL", form.Link) }}
     {{ select('Gender', "Gender", genders, form.Gender) }}
-    {{ submit("Save") }}
+    <div class="row">
+      <div class="col-sm">
+        {{ submit("Save") }}
+      </div>
+      <div class="col-sm text-right">
+        <br>
+        <a href="/profile/delete" class="btn btn-lg btn-danger">
+          Delete My Account
+        </a>
+      </div>
+    </div>
   </form>
 {% endblock %}

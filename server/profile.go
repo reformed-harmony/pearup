@@ -104,9 +104,37 @@ func (s *Server) profile(w http.ResponseWriter, r *http.Request) {
 				return nil
 			}
 		}
-		s.render(w, r, "profile.html", ctx)
+		s.render(w, r, "profile/index.html", ctx)
 		return nil
 	})
+	if err != nil {
+		s.renderError(w, r, err.Error())
+	}
+}
+
+func (s *Server) profileDelete(w http.ResponseWriter, r *http.Request) {
+	err := func() error {
+		ctx := pongo2.Context{
+			"title": "Delete My Account",
+		}
+		if r.Method == http.MethodPost {
+			user := r.Context().Value(contextUser).(*db.User)
+			user.Name = "[Deleted User]"
+			user.Email = ""
+			user.Picture = ""
+			user.Link = ""
+			user.IsMale = false
+			user.IsFemale = false
+			if err := s.conn.Save(user).Error; err != nil {
+				return err
+			}
+			s.addAlert(w, r, flashDanger, "your profile has been deleted")
+			s.logout(w, r)
+			return nil
+		}
+		s.render(w, r, "profile/delete.html", ctx)
+		return nil
+	}()
 	if err != nil {
 		s.renderError(w, r, err.Error())
 	}

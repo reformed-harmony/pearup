@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Delete My Account</h1>
+  <p class="text-muted">
+    <strong>Warning!</strong>
+    This will delete all of your personal data that was imported during login* and your profile information. <strong>This information cannot be recovered once deleted.</strong>
+  </p>
+  <p class="text-muted">
+    Please confirm that you wish to delete the account.
+  </p>
+  <p class="text-muted small">
+    *for the safety of others, your login ID will be preserved to ensure that future logins do not result in new accounts being created
+  </p>
+  <form method="post">
+    <br>
+    <button type="submit" class="btn btn-lg btn-danger">
+      Confirm
+    </button>
+  </form>
+{% endblock %}

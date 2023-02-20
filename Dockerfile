@@ -7,7 +7,6 @@ ADD . /src
 
 WORKDIR /src
 
-RUN go generate
 RUN go build
 
 

@@ -28,5 +28,5 @@ func (r *Recorder) WriteHeader(statusCode int) {
 
 // Elapsed determines how long the method took to execute.
 func (r *Recorder) Elapsed() time.Duration {
-	return time.Now().Sub(r.StartTime)
+	return time.Since(r.StartTime)
 }

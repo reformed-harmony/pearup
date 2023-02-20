@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/flosch/pongo2"
+	"github.com/flosch/pongo2/v4"
 	"github.com/gorilla/mux"
 	"github.com/reformed-harmony/pearup/db"
 )

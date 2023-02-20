@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/flosch/pongo2"
+	"github.com/flosch/pongo2/v4"
 	"github.com/nathan-osman/go-ezform"
 	"github.com/nathan-osman/go-ezform/fields"
 	"github.com/nathan-osman/go-ezform/validators"

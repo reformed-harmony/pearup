@@ -5,10 +5,10 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/flosch/pongo2"
+	"github.com/flosch/pongo2/v4"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
-	loader "github.com/nathan-osman/pongo2-embed-loader"
+	loader "github.com/nathan-osman/pongo2-embed-loader/v4"
 	"github.com/reformed-harmony/pearup/assets"
 	"github.com/reformed-harmony/pearup/auth"
 	"github.com/reformed-harmony/pearup/db"

@@ -5,13 +5,13 @@ go 1.18
 require (
 	github.com/dghubble/gologin/v2 v2.4.0
 	github.com/dghubble/sling v1.4.1
-	github.com/flosch/pongo2 v0.0.0-20200913210552-0d938eb266f3
 	github.com/flosch/pongo2-addons v0.0.0-20210526150811-f969446c5b72
+	github.com/flosch/pongo2/v4 v4.0.2
 	github.com/gorilla/mux v1.8.0
 	github.com/gorilla/sessions v1.2.1
 	github.com/jinzhu/gorm v1.9.16
 	github.com/nathan-osman/go-ezform v0.0.0-20181208223112-6deed8d1fd72
-	github.com/nathan-osman/pongo2-embed-loader v1.0.1
+	github.com/nathan-osman/pongo2-embed-loader/v4 v4.0.1
 	github.com/sirupsen/logrus v1.9.0
 	github.com/urfave/cli v1.22.12
 	golang.org/x/oauth2 v0.5.0
@@ -23,7 +23,6 @@ require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
 	github.com/extemporalgenome/slug v0.0.0-20150414033109-0320c85e32e0 // indirect
 	github.com/flosch/go-humanize v0.0.0-20140728123800-3ba51eabe506 // indirect
-	github.com/flosch/pongo2/v4 v4.0.2 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect

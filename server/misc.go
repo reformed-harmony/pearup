@@ -3,7 +3,7 @@ package server
 import (
 	"net/http"
 
-	"github.com/flosch/pongo2"
+	"github.com/flosch/pongo2/v4"
 )
 
 func (s *Server) index(w http.ResponseWriter, r *http.Request) {

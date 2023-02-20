@@ -11,6 +11,7 @@ require (
 	github.com/gorilla/sessions v1.2.1
 	github.com/jinzhu/gorm v1.9.16
 	github.com/nathan-osman/go-ezform v0.0.0-20181208223112-6deed8d1fd72
+	github.com/nathan-osman/pongo2-embed-loader v1.0.1
 	github.com/sirupsen/logrus v1.9.0
 	github.com/urfave/cli v1.22.12
 	golang.org/x/oauth2 v0.5.0

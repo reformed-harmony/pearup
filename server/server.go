@@ -8,6 +8,7 @@ import (
 	"github.com/flosch/pongo2"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
+	loader "github.com/nathan-osman/pongo2-embed-loader"
 	"github.com/reformed-harmony/pearup/assets"
 	"github.com/reformed-harmony/pearup/auth"
 	"github.com/reformed-harmony/pearup/db"
@@ -48,7 +49,7 @@ func New(cfg *Config) (*Server, error) {
 			conn:        cfg.Conn,
 			matcher:     cfg.Matcher,
 			store:       sessions.NewCookieStore([]byte(cfg.SecretKey)),
-			templateSet: pongo2.NewSet("", &vfsgenLoader{}),
+			templateSet: pongo2.NewSet("", &loader.Loader{Content: assets.Templates}),
 			log:         logrus.WithField("context", "server"),
 			stopped:     make(chan bool),
 		}
@@ -112,7 +113,7 @@ func New(cfg *Config) (*Server, error) {
 	s.router.Handle("/login/google/callback", gProvider.CallbackHandler())
 
 	// Static and media files
-	r.PathPrefix("/static").Handler(http.FileServer(assets.Assets))
+	r.PathPrefix("/static").Handler(http.FileServer(http.FS(assets.Static)))
 	r.PathPrefix("/media").Handler(
 		http.StripPrefix("/media", http.FileServer(http.Dir(cfg.MediaDir))),
 	)

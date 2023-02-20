@@ -8,9 +8,8 @@ This web application provides a simplified interface for creating "pear-ups". Th
 
 ### Building pearup
 
-To build the application, you will need the Go compiler installed. Once installed, execute the following commands:
+To build the application, you will need the Go compiler installed. Once installed, execute the following command:
 
-    go generate
     go build
 
 Assuming all goes well, you should end up with an executable in the current directory named `pearup` or `pearup.exe`. You can use the `--help` flag to learn which arguments should be passed to the application.
